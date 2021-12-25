@@ -1,0 +1,32 @@
+{% extends 'BlogApp/navBar.html' %}
+
+{% block body %}
+<!-- Create table format to display -->
+<div class="container">
+<table class="table ">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Posted On</th>
+            <th scope="col">Category</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    {% for blog in my_blog %}
+    <tbody>
+        <tr>
+            <td scope="row">{{ blog.title }}</td>
+            <td>{{ blog.description }}</td>
+            <td>{{ blog.post_date }}</td>
+            <td>{{ blog.category_id }}</td>
+            <td>
+                <a href="" class="btn btn-primary mx-2 my-2">Edit</a>
+                <a href="" class="btn btn-primary mx-2 my-2">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

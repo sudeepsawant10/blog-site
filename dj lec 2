@@ -1,0 +1,185 @@
+1. startproject Blog
+django-admin startproject portfolio
+2. create views.py file
+3. In settings.py middelware for authentification
+
+
+127.0.0.1:8000/admin=> for accessing database
+
+4. 
+
+************** ADMIN LOGIN **********************
+>python manage.py createsuperuser 
+-fire command in manage.py dir
+
+-this will give u following error:
+django.db.utils.OperationalError: no such table: auth_user
+-bcoz we have not created any table so we have to auth_user in built table
+-so we have to take that table into our project by using command
+
+>python manage.py makemigrations
+No changes detected
+-db is created locally
+
+to check on actual server
+>python manage.py migrate
+o/p:
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying sessions.0001_initial... OK
+  -these are the tables created
+  0003_alter_user_email_max_length
+  -now u can see auth_user table is now created
+
+  -so now we can create superuser
+  python manage.py createsuperuser
+  op:
+  Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+- it will ask some user info
+
+so run the server again and go to admin login
+using /admin
+
+******************** CREATE APPLICATION ****************
+In django we divide various functionalities of project in different applications for good oraganization of project 
+
+eg.
+Blog site => project
+
+functionalities
+1. Normal user =>crud operation of blogs by different users
+2. Admin user  => can get info about no. of user, blog added by users
+3. General
+
+
+
+1. To create APPLICATION under particular project
+>python manage.py startapp NormalUser
+1. when app is created successfully the first step is to register that application in INSTALLED_APPS list of settings.py
+eg. 'NormalUser',
+- it will give u error if you haven't register the app while accessing it
+
+2. In our NormalUser app create urls.py file
+-to manage the url in NormalUser application
+
+info of different files in our application
+NormalUser
+1. __init__.py
+2. admin.py => when we create any database we have to register it into admin.py
+3. apps.py
+4. models.py => It will have schema(tables)or models defination for our database using classes
+5. tests.py
+6. urls.py => calls views 
+7. views.py => like controller it will fetch data and write data into model through template fils i.e. front end 
+=>classes are preferable to create views
+
+django follow mvt pattern
+model view template pattern
+- user request through url 
+-with url it goes to view
+- view will fetch data through model and template to give response to user
+other framework follow mvc controller
+
+**************** USE URL OF APPLICATION
+127.0.0.1:8000/home
+=display view from BlogApp
+
+
+- create a BlogApp
+remember first step register
+1. Give the url in main project Blog urls.py
+eg.
+ path('', include('.urls'))
+=>for this u have to import these modules
+from django.urls.conf import include
+ 
+activity:
+declare /home url functionality in BlogApp
+so we have to include BlogApp url in root urls.py file
+root (main url file) will be urls.py of Blog project application
+-from here we will pass on info to other application
+Blog
+-urls.py
+path('', include('BlogApp.urls'))
+it will give u os error filenotfound i.e. file is incorrect
+>py manage.py runserver
+ModuleNotFoundError: No module named 'BlogApp.urls'
+
+-so we have to create urls.py file in BlogApp
+>runserver
+error:
+probably caused by a circular import.
+-bcoz there is nothing in urls.py of BlogApp
+
+from django.urls import path
+from django.urls.conf import include
+
+urlpatterns = [
+    path('', )
+]
+    
+
+- so copy urlpatterns of main Blog project app urls.py in urls.py of BlogApp
+- and import file views from current applications i.e. BlogApp
+from . import views
+
+=>so final urls.py file of BlogApp will be:
+
+
+from . import views
+
+from django.urls import path
+from django.urls.conf import include
+
+urlpatterns = [
+    #url, function, name
+    path('home/', views.Home, name='home'),
+]
+
+
+== you cannot give 2 and more same url in entire project applications
+
+main urls.py file
+=we access other applications url using this file
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('BlogApp.urls')) #fetch the BlogApp urls
+]
+
+==in BlogApp urls
+
+urlpatterns = [
+    #url, function, name
+    path('home/', views.Home, name='home'), #this urls will go to main urls.py file
+    path('contact/', views.Contact, name='contact'),
+    path('about/', views.About, name='about'),
+]
+
+Inshort
+/home request=> will go to BlogApp url
+
+-create views in views.py of BlogApp like:
+
+from django.http import HttpResponse
+
+def Home(request):
+    return HttpResponse("<h1>Welcome to Home page</h1>")

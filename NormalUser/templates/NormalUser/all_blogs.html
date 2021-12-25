@@ -1,0 +1,52 @@
+{% extends 'BlogApp/navBar.html' %}
+
+{% block body %}
+<!-- Create table format to display -->
+<div class="container my-4">
+    <table class="table ">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Posted On</th>
+                <th scope="col">Category</th>
+            </tr>
+        </thead>
+        {% for blog in my_blog %}
+        <tbody>
+            <tr>
+                <td scope="row">{{ blog.title }}</td>
+                <td>{{ blog.description }}</td>
+                <td>{{ blog.post_date }}</td>
+                <td>{{ blog.category_id }}</td>
+                <td>{{ blog.owner }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+
+    </table>
+</div>
+
+<div class="container my-3">
+
+    <div class="row">
+        {% for blog in my_blog %}
+
+        <div class="col-md-4 my-3 ">
+            <div class="card" style="width: 18rem; padding: 10px;">
+                <img src="https://source.unsplash.com/600x450/?{{ blog.title }},{{ blog.category_id }}"
+                    class="card-img-top" alt="...">
+                <div class="card-body my-2">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <p class="card-text">{{ blog.description }}</p>
+                    <span class=text-blue"><a href="#" class=text-dark">{{ blog.category_id }}</a> Blog By {{blog.owner}}</span>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

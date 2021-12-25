@@ -1,0 +1,29 @@
+{% extends 'BlogApp/navBar.html' %}
+
+{% block body %}
+<div class="container my-3">
+
+    <h1>Categories</h1>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in All_Category %}
+            <tr>
+                <td>{{category.name}}</td>
+                <td><a href="{% url 'edit_category' id category.id %}" class="my-2 mx-2">Edit</a>
+                    <a href="{% url 'delete_category' id category.id %}"  class="my-2 mx-2">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+         
+        </tbody>
+      </table>
+</div>
+{% endblock %}

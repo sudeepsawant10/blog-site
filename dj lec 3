@@ -1,0 +1,208 @@
+
+#lecture 3
+""""""""""""""""""" HOW TO CALL HTML PAGE *********************
+
+1. make new dir templates inside this again make same dir of our application i.e. BlogApp in BlogApp application
+i.e.
+^BlogApp
+    -template
+        -BlogApp
+            home.html
+            contact.html
+
+*********function based view
+2. change views of BlogApp use render template
+e.g. return render(request, 'BlogApp/home.html)
+-do not mension template by default it in template
+render = to access html page 
+-3parameters
+from django.shortcuts import render =>library for render()
+
+from django.http.response import HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+
+
+def index(request):
+    return HttpResponse("<h1>Welcome to index page</h1>")
+
+
+def Home(request):
+    return render(request, 'BlogApp/home.html')
+
+
+def Contact(request):
+    # return HttpResponse("<h1>Welcome to Contact page</h1>")
+    return render(request, 'BlogApp/contact.html')
+
+
+************class based views
+
+libraries for class
+form django.views import View
+=>every class contain get and post method
+get()=>call from url
+post()=>call from form event
+request=> bcoa we are passing template parameter
+class Home(View):
+    def get(self, request):
+        return render(request, 'BlogApp/home.html')
+
+    def post(self, request):
+    return render(request, 'BlogApp/home.html')
+
+class Contact(View):
+    def get(self, request):
+        return render(request, 'BlogApp/home.html')
+
+    def post(self, request):
+    return render(request, 'BlogApp/home.html')
+
+
+In urls.py of BlogApp
+urlpatterns=[
+    path('home/', views.Home.as_view(), name = 'name')
+    path('contact/', views.Contact.as_view(), name = 'name')
+]
+ views.Home.as_view()
+ -it will call get method of Home class
+
+ ******************** inheritance concept of navigation bar ****************
+ 1.create html file for common thing eg. navBar
+ 
+
+ ****************** use of name*************
+ use in navBar
+ href = "{% url 'home' %}" 
+ href = "{% url 'login' %}" 
+ href = "{% url 'register' %}" 
+ 
+
+lecture 4 
+*********************login***********************
+
+ csrf token cross refresh forgery
+ -security for our form
+ -security for request
+ -login page using name parameter in navBar.html file
+ whenver u are going to transfer data to database then we provide one level security for not changing our data
+ 
+
+ data fetching through register
+ you can read defferent attribute at once
+ 
+ register and login page
+
+ To fetch the data through register.html page
+
+Imp topics
+4 talbes
+x y z w
+like text and pasword stuff
+
+ -foms.py
+ use:
+ 1. whatever details fill and submit u can pass that data using form.py to database
+ 2. don't need to read each attribute explicitly
+ 3. read only once all the attribute
+ Overcome problem
+ to read each value explicitly
+
+ 4. Using single line you can read all the stuff related to that form (html)
+
+ refer forms.py, register.html and views.py
+
+ lecture 5
+ ********************* logout **************************
+ 1. login authentification if valid user = go to normaluser home page change the navigation bar
+ 2. logout go to home page of BlogApp url without login navigation bar
+ 127.0.0.1:8000/user/1
+ 127.0.0.1:8000/user/2 for unique user url
+ NormalUser
+ home page
+ url user/ Reguser
+ **kwargs
+
+ Admin panel=>for staff only cannot access normal active_user
+
+ To design url for different user
+
+ After successfull logged in 
+ takin user to userhome page of NormalUser App
+
+ logout
+
+ when user not logged in and u can go to usr/2 url is wrong
+
+ 127.0.0.1:8000/usr/2 jayesh
+ 127.0.0.1:8000/usr/6 jayesh still giving jayesh so logout and checkout
+
+ lecture 6
+ sith_django
+ git clone https repo
+ cd sith_django
+ git status
+ git branch
+ git checkout haresh_dev
+ git add .
+ 
+ in venv sudeep_dev
+
+ if modification done in sudeep_dev
+ git status
+
+inside sudeep_dev
+ git clone 
+ cd django_2021_may
+
+ branch sudeep_dev
+ get status
+
+ add changes
+ git add.
+
+ git commit -m 'initial commit'
+
+ only ready on system
+ to send
+ git push origin sudeep_dev
+ git status
+
+ pull from haresh dir
+
+ git checkout khushi_dev to change the branch
+ git fetch
+
+
+ creating branch through terminal
+ git checkout -b jayesh_dev
+
+
+ git pull 
+
+ blog table structure
+id title category 
+
+
+
+ model category, blog talbes
+ models.setNULL
+ models.cascade = delete row if foreign key is delete
+
+ py manage.py migrate
+from . models import Blog
+# Register your models here.
+admin.site.register(Blog)
+
+how we can register login
+forms.py register
+models
+Adding blog by user 
+crud
+
+lecture 7
+
+
+
+

@@ -1,0 +1,92 @@
+1. python version >3
+check python version
+python --version
+2. install pip
+py -m ensurepip --defaylt-pip
+check pip version
+py -m pip --version
+check list of packages
+pip list
+pip help
+
+seperate virtual envirenment
+install virtual environment wrapper
+pip install virtualenvwrapper-win or pip install virtualenv
+
+create virutal envirenment (VE) it will auto activate VE
+mkvirtualenv envname		or python -m venv env
+
+Activate VE
+workon envname			or mypython\scripts\activate
+
+install django in created ve
+pip install django
+
+django-admin --version
+deactivate
+
+install or upgrade package:
+python -, pip install --upgrade pip setuptools wheel
+=>it will upgrade setuptools and install wheel package
+pip list
+
+manage.py = db management 
+mysite/
+settings.py=>new app registraion
+sqlite db
+staticurl=>js , bootstrap css files
+
+urls:
+www.sithcomputers.com
+
+sbi = 127.0.0.1: 8000
+hdfc = 127.0.0.1: 8001
+server address
+db=(sbi,hdfc,boi)
+127.0.0.1: 8000/home =>sbi home page
+
+dir of manage.py
+default auth_suer
+to 
+python manage.py makemigration
+python manage.py createsuperuser
+
+admin login
+
+Blog site--
+sections
+1. normal user =>can add and edit blog(create, update and delete)
+2. admin user => number of user , category of blogs added by user
+
+to create new application:
+python manage.py start app_name =>for every functionality we create an app
+
+1. python manage.py startapp Normaluser
+python manage.py runserver
+
+In NormalUser>
+create urls.py
+models.py=>db schema
+test.py=>
+urls.py
+
+
+views.py=>follows model view template (mvt)
+2. Register app
+settings.py =>installled_app['NormalUser',]
+
+3. add blog app url in main urls.py
+eg. path('', include('Blogapp.utls')
+blogapp url
+path('home'/)
+parh('contact'/
+
+define contact function in views.py
+def Contact(request):
+return HttpResponse()
+
+
+day 2
+templates
+blogapp/views.py
+
